@@ -29,7 +29,7 @@
                         {% if page.url == link.url%}
                           {% assign active = 'nav-item-active' %}
                         {% endif %}
-                        <li class="nav-item {{ active }}">
+                        <li class="nav-item {{ active }}" style = "position:relative;left:-60px;float:left;">
                             <a href="{{ site.baseurl }}/{{ link.url }}">
                                 {{ link.text }}
                             </a>
