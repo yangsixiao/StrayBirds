@@ -99,6 +99,9 @@ h1, h2, h3, h4, h5, h6 {
                0 0 5px rgba(181, 232, 83, 0.1),
                0 0 10px rgba(181, 232, 83, 0.1);
 }
+h2{
+  margin-bottom:16px;
+}
 
 #main_content h1 {
   font-size: 30px;
@@ -136,6 +139,9 @@ dt {
 
 ul li {
   list-style: none;
+  position: relative;
+  left: -60px;
+  float:left;
 }
 
 ul li:before {
@@ -143,8 +149,8 @@ ul li:before {
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 13px;
   color: #b5e853;
-  margin-left: -37px;
-  margin-right: 21px;
+  margin-left: 20px;
+  margin-right: -1px;
   line-height: 16px;
 }
 
