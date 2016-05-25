@@ -147,7 +147,7 @@ ul li:before {
   font-size: 13px;
   color: #b5e853;
   margin-left: 20px;
-  margin-right: -1px;
+  margin-right: 5px;
   line-height: 16px;
 }
 
