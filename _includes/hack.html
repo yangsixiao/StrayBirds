@@ -23,6 +23,20 @@
         </h1>
         <h2>{{site.description}}</h2>
 
+{% if paginator.total_pages > 1 %}
+    <nav class="pagination fn-clear">
+        <span class="pagination-icon"><i class=" icon-copy"></i></span>
+        <ul class="pagination-list">
+            {% for page in (1..paginator.total_pages) %}
+                {% if page == paginator.page %}
+                    <li class="current"><a href="javascript:void(0);">{{ page }}</a></li>
+                {% else %}
+                    <li><a href="{{ site.baseurl }}/{%if page > 1 %}page{{ page }}/{% endif %}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+{% endif %}
         
       </div>
     </header>
