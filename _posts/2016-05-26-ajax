@@ -1,0 +1,76 @@
+---
+layout: post
+title:ajax的方法整理
+category: 技术
+comments: true
+---
+
+
+## ajax的一些方法
+
+这里的的ajax是 jQuery 高层实现 $.get, $.post 等，因为比较方便，平时用得比较多，ECShop有的模板不兼容jQuery，也有自己的ajax实现方法，例如：
+
+```php
+	Ajax.call( 'user.php?act=is_registered', 'username=' + username, registed_callback , 'GET', 'TEXT', true, true );
+```
+
+### 同步和异步
+
+比如在网速不好的时候，加减商品可能出现点加号，数字加上去了，商品价格却没有加上去。
+
+要加上
+async:false, 
+
+一般比如手机版的下拉，需要异步加载内容，在后台取得数据后在前台的js，进行html拼接后输出：
+
+```
+  $.ajax({
+        type:'post',
+        url:'',
+        data:data = {
+            'id' : id,
+            'cat_id' : cat_id,   
+        },
+        success:function(response,status,xhr){
+            $('html,body').animate({
+                scrollBottom : '215px'
+            }, 300);
+            var obj = eval("("+response+")");
+            var len = obj.length;
+            var html = '';
+            for(var i = 0; i < len; i++) {
+                html += '<a href = "">';
+                html += '<img src="">';
+                html += '<p class = "p1">'+obj[i].title;
+                html += '</a>';
+            }
+        $('#myid').html(html);
+    });
+```
+注意eval()的使用和后台json_encode()的输出;
+
+## 简单些
+
+如果只是单纯进行简单的后台交互，进行一个信息提醒，那直接一句ajax搞定他：
+
+```
+$.get('url',{'id':id,'cat_id',cat_id},function(res){alert(res.info)},'json');
+```
+
+### echop的话，后台直接echo返回的信息内容
+
+### tp则是$this->success('message');的提醒
+
+### shopnc showMessage()函数可以不进行拼接
+
+*json对象转化成字符串的
+
+一般是toJSONString()函数
+
+如果报错的话可以在你的页面中引用该json2.js，然后调用 JSON.stringify() 方法将 JavaScript 对象转化成 JSON 字符串
+
+链接为：https://github.com/douglascrockford/JSON-js
+
+用 git clone 命令克隆到本地就得到文件啦
+
+
