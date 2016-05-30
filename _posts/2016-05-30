@@ -1,0 +1,10 @@
+---
+layout: post
+title: jq写的碰撞游戏
+category: 技术
+comments: true
+---
+
+## 在windows下不能建立以点开头的文件
+## 你可以先随便建立一个文件 然后在DOS在操作 rename xxxx.xxxx .htaccess
+## 或者打开记事本写入htaccess然后另存为.htaccess即可
