@@ -10,3 +10,4 @@ comments: true
 你可以先随便建立一个文件 然后在DOS在操作 rename xxxx.xxxx .htaccess
 
 或者打开记事本写入htaccess然后另存为.htaccess即可
+
