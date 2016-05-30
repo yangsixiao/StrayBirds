@@ -1,0 +1,58 @@
+---
+layout: post
+title: input框异步上传小功能
+category: 技术
+comments: true
+---
+
+有些phpmyadmin版本的表页面，有一个小功能，点击想要修改的内容，会出现一个文本框，在文本框修改完之后，鼠标移开，就完成修改。
+
+现在尝试一下完成这个小功能
+
+## 比如有两个文本框
+
+```html
+<span class = "mspan1" onclick = "changeword(1);">内容1</span>
+<span class = "mspan2" onclick = "changeword(2);">内容2</span>
+```
+
+以下为tp框架下的例子
+
+## 前端
+
+```html
+  function changeword(dif,_this){
+  	var id = {$info.article_id};
+  	var temp = $('.mspan'+dif).text();
+  	$('.mspan'+dif).after("<input class='minput' type='text' size='50' value = '"+temp+"'/>");
+  	$('.mspan'+dif).empty();
+  	$('.minput').blur(function(){
+  		var temp2 = $(this).val();
+  		$.get("__URL__/changeword",{'id':id,'content':temp2,'dif':dif},function(res){
+  			$('.minput').css({'display':'none'});
+  			$('.mspan'+dif).text(temp2);
+  		},'html');
+  	});
+  }
+```
+
+## 后端
+
+```html
+  	public function changeword(){
+		$id = $_GET['id'] + 0;
+		$content = $_GET['content'];
+		$dif = $_GET['dif'] + 0;
+		if($dif == 1)$data['tit1'] = $content;
+		else $data['tit2'] = $content;
+		if(M('article')->where(array('article_id'=>$id))->save($data)){
+			echo 1;
+		}else{
+			echo '网络错误！';
+		}
+	}
+```
+
+这个功能按着思路一步步做就可以了，是比较简单的功能，但是我有时候还是会在比较细节的问题上糊涂。
+
+比如class少写了个点，参数顺序错误之类的，调试上还是比较迟钝。
