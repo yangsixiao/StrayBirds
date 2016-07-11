@@ -1,0 +1,69 @@
+---
+layout: post
+title: 详细页分页代码
+category: 技术
+comments: true
+---
+
+```html
+
+    /*当前域名*/
+    public function GetCurUrl()
+    {
+    if(!empty($_SERVER["REQUEST_URI"]))
+    {
+    $scriptName = $_SERVER["REQUEST_URI"];
+    $nowurl = $scriptName;
+    }
+    else
+    {
+    $scriptName = $_SERVER["PHP_SELF"];
+    if(empty($_SERVER["QUERY_STRING"]))
+    {
+    $nowurl = $scriptName;
+    }
+    else
+    {
+    $nowurl = $scriptName."?".$_SERVER["QUERY_STRING"];
+    }
+    }
+    return $nowurl;
+    } 
+
+    /* 将URL中的某参数设为某值*/ //【这一段就挺好啊】 
+    public function url_set_value($url,$key,$value)
+    {
+    $a=explode('?',$url);
+    $url_f=$a[0];
+    $query=$a[1];
+    parse_str($query,$arr);
+    $arr[$key]=$value;
+    return $url_f.'?'.http_build_query($arr);
+    } 
+  
+      //分页
+      $m_arr = explode('tags',$con);
+      if(count($m_arr)!=1){
+          $pagetag = $_GET['pagetag'];
+          $pagetag?$pagetag:$pagetag = 1;
+          $this->dc_con = $m_arr[$pagetag-1];
+          $m_page = "<div class='page'>";
+          if($pagetag != 1){
+              $m_page .= "<a class='prev' style='margin-right:2px;' href='".$this->url_set_value($this->GetCurUrl(),'pagetag',($pagetag-1))."'>上一页</a>";
+          }
+          foreach ($m_arr as $key => $value) {
+              $url = $this->url_set_value($this->GetCurUrl(),'pagetag',($key+1));
+              ($key+1) == $pagetag?$hover = "class='hover'":$hover = "";
+              $m_page .= "<a style='margin-right:2px;' ".$hover." href='".$url."'>".($key+1);
+              $m_page .= "</a>";
+          }
+          if($pagetag != count($m_arr)){
+              $m_page .= "<a class='next' href='".$this->url_set_value($this->GetCurUrl(),'pagetag',($pagetag+1))."'>下一页</a>";
+          }
+          $m_page .="</div>";
+          $this->assign('m_page',$m_page);
+      }else{
+          $this->dc_con = $con;
+      }
+      // 传进来$con为页面内容，根据文章有'tags'标记的地方进行分页
+```
